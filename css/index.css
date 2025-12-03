@@ -1,0 +1,109 @@
+/*
+Copyright (c) [2025] [Kafid Renaldo]
+Filename: index.css
+*/
+
+
+body {
+    font-family: 'Arial','Courier New', Times New Roman;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%); /* Latar belakang gradien ceria */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+#button, #button1, #button2 {
+  background-color: #007bff; /* Biru cerah */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+#button1, #button2 {
+  display: none;
+}
+/* Pastikan semua tombol yang akan dipindahkan memiliki posisi absolut */
+#button, #button1, #button2, #button3, #button4, #playButton {
+    /* Absolut memungkinkan kita mengatur posisi berdasarkan koordinat */
+    position: absolute; 
+    /* Untuk tombol awal, atur posisi yang jelas agar terlihat */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Memastikan tombol awal berada di tengah */
+}
+
+/* Pertahankan penyembunyian tombol-tombol yang tidak seharusnya terlihat */
+#button1, #button2, #button3, #button4, #playButton {
+    display: none;
+}
+
+.container {
+  display: none;
+}
+.container {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+
+h1 {
+    color: #e83e8c; /* Warna pink cerah */
+    margin-bottom: 20px;
+}
+
+.photo {
+    width: 100%; /* Lebar gambar mengisi container */
+    max-height: 300px;
+    object-fit: cover; /* Memastikan gambar terlihat bagus */
+    border-radius: 15px;
+    border: 5px solid #ffc107; /* Border emas */
+    margin-bottom: 25px;
+}
+
+.message {
+    font-size: 1em;
+    line-height: 1.5;
+    line-height: 1.5;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    font-family: 'Comic Sans MS';
+}
+.btn {
+  padding: 4px 3px 3px 3px;
+}
+#playButton{
+  display: none;
+}
+#playButton {
+    background-color: #007bff; /* Biru cerah */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+#playButton:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+#button:hover,
+#button1:hover,
+#button3:hover,
+#button4:hover,
+#button2:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
