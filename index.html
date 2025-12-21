@@ -30,9 +30,30 @@ Filename: index.html
                                                                                                                     Semoga harimu dipenuhi kebahagiaan, tawa, dan semua yang kamu impikan.<br>Serta selalu terbayang-bayang sama <b class="">SAYAAAA</b >! wkwkwk<br>
                                                                                                                                 Terima kasih sudah menjadi teman terbaik!!
                                                                                                                                         </p>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="bukaGaleri()" style="padding: 10px 20px; background-color: #ff69b4; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 16px;">
+        →→ 📸 ←←
+    </button>
+</div>
+
                                                                                                                                                 <audio id="birthdaySong" src="https://audio.jukehost.co.uk/sUuPpETGHGdiraEIRG6n91jnccliG0KB" loop></audio>
                                                                                                                                                     </div>
+
+<div id="galeri-foto" class="gallery-container" style="display: none;">
+    <h2 style="width: 100%; text-align: center; color: white; margin-bottom: 20px;">Kenangan Indah Bersamamu ❤️</h2>
+    
+    <div class="photo-card"><img src="foto1.jpg" alt="Foto 1"></div>
+    <div class="photo-card"><img src="foto2.jpg" alt="Foto 2"></div>
+    <div class="photo-card"><img src="foto3.jpg" alt="Foto 3"></div>
+    <div class="photo-card"><img src="foto4.jpg" alt="Foto 4"></div>
+    <button onclick="kembaliKeAwal()" style="margin-top: 30px; padding: 10px 20px; background: white; color: #333; border-radius: 20px; border: none; cursor: pointer;">Kembali</button>
+</div>
+
                                                                                                                                                         <script src="js/index.js"></script>
+<div id="fireworks-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.10.0/dist/fireworks.js"></script>
+
                                                                                                                                                         </body>
                                                                                                                                                         </html>
                                                                                                                                                         -->>
