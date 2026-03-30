@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nabila!</title>
+    
+    <!-- Menggunakan Tailwind CSS untuk Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Menggunakan FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Khusus untuk Animasi Tambahan -->
+    <style>
+        /* Animasi Kado Mengapung Perlahan */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float-slow {
+            animation: float-slow 3s ease-in-out infinite;
+        }
+
+        /* Animasi Hati Beterbangan di Background */
+        @keyframes float-up {
+            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(45deg); opacity: 0; }
+        }
+        .floating-heart {
+            position: fixed;
+            z-index: 0;
+            color: #fca5a5; /* rose-300 */
+            animation: float-up 6s linear infinite;
+        }
+
+        /* Transisi Slideshow */
+        .slide-image {
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            opacity: 0;
+            transform: scale(1.05);
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slide-image.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* Transisi Fade Out untuk Halaman Pembuka */
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-out;
+        }
+
+        /* Transisi Fade In untuk Konten Utama */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-pink-50 overflow-hidden font-sans text-gray-800">
+
+    <!-- Audio Background -->
+    <!-- Lagu akan diatur melalui JavaScript setelah tombol kado ditekan -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/01/18/audio_27abfc52fb.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Halaman Pembuka (Cover) -->
+    <div id="coverScreen" class="fixed inset-0 z-50 bg-gradient-to-br from-pink-200 via-rose-100 to-pink-300 flex flex-col items-center justify-center p-4">
+        <div class="bg-white/40 p-8 rounded-3xl shadow-xl backdrop-blur-sm border border-white/50 text-center max-w-sm w-full animate-float-slow">
+            <h1 class="text-2xl font-bold text-rose-600 mb-6 font-serif">Ada kado spesial untukmu...</h1>
+            
+            <button id="openGiftBtn" class="group relative inline-flex flex-col items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 outline-none">
+                <div class="absolute inset-0 bg-rose-400 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                <i class="fa-solid fa-gift text-[80px] text-rose-500 relative z-10 animate-pulse mb-4"></i>
+                <span class="px-6 py-2 bg-rose-500 text-white font-semibold rounded-full shadow-lg hover:bg-rose-600 transition-colors">
+                    Buka Sekarang
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Halaman Utama (Tersembunyi Awalnya) -->
+    <div id="mainContent" class="hidden min-h-screen bg-gradient-to-b from-pink-50 via-white to-rose-50 relative overflow-x-hidden overflow-y-auto">
+        
+        <!-- Wadah Hati Beterbangan (Diisi oleh JS) -->
+        <div id="heartsContainer" class="fixed inset-0 pointer-events-none z-0"></div>
+
+        <!-- Tombol Kontrol Musik -->
+        <div class="fixed top-4 right-4 z-50">
+            <button id="musicToggleBtn" class="bg-white/80 backdrop-blur-md w-12 h-12 rounded-full shadow-lg border border-pink-100 flex items-center justify-center text-rose-500 hover:bg-rose-50 transition-all outline-none relative">
+                <i id="musicIcon" class="fa-solid fa-pause text-xl"></i>
+                <i class="fa-solid fa-music absolute -bottom-1 -right-1 text-xs text-pink-400"></i>
+            </button>
+        </div>
+
+        <!-- Konten Surat & Slideshow -->
+        <div class="max-w-md mx-auto min-h-screen relative z-10 flex flex-col p-6 py-12">
+            
+            <!-- Header Judul -->
+            <div class="text-center mb-8 fade-in" style="animation-delay: 0.2s; opacity: 0;">
+                <div class="flex justify-center items-center mb-4 gap-3">
+                    <i class="fa-solid fa-sparkles text-yellow-400"></i>
+                    <i class="fa-solid fa-heart text-3xl text-rose-500 animate-pulse"></i>
+                    <i class="fa-solid fa-sparkles text-yellow-400"></i>
+                </div>
+                <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-500 mb-2 drop-shadow-sm font-serif">
+                    Happy Birthday!
+                </h1>
+                <h2 class="text-2xl font-bold text-rose-800 tracking-wide">
+                    Nabila Avriella Nuril
+                </h2>
+            </div>
+
+            <!-- Bagian Slideshow Foto -->
+            <div class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white group bg-pink-100 fade-in" style="animation-delay: 0.4s; opacity: 0;">
+                
+                <!-- Gambar-gambar akan dimasukkan via JS ke dalam div ini -->
+                <div id="slideshowContainer" class="w-full h-full relative"></div>
+                
+                <!-- Tombol Navigasi Kiri / Kanan -->
+                <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 w-10 h-10 rounded-full backdrop-blur-sm text-rose-600 transition-all opacity-0 group-hover:opacity-100 z-20 flex items-center justify-center outline-none">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 w-10 h-10 rounded-full backdrop-blur-sm text-rose-600 transition-all opacity-0 group-hover:opacity-100 z-20 flex items-center justify-center outline-none">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <!-- Titik Indikator -->
+                <div id="indicatorsContainer" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20"></div>
+            </div>
+
+            <!-- Bagian Ucapan Teks -->
+            <div class="bg-white/70 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-pink-50 text-center fade-in" style="animation-delay: 0.6s; opacity: 0;">
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Selamat ulang tahun, <strong>Nabila!</strong> 🎉
+                </p>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Semoga di hari yang spesial ini, kamu selalu dikelilingi oleh kebahagiaan, cinta, dan orang-orang tersayang. Semoga semua doa, harapan, dan impianmu satu per satu dapat terwujud di usia yang baru ini.
+                </p>
+                <p class="text-gray-600 leading-relaxed font-medium">
+                    Teruslah bersinar dan menjadi versi terbaik dari dirimu. Have a beautiful and wonderful birthday! 💖✨
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Foto Nabila
+        const images = [
+            "ad115f86-6e92-46d1-b606-ea5d36c44914-1_all_3182.jpg",
+            "ad115f86-6e92-46d1-b606-ea5d36c44914-1_all_3186.jpg",
+            "ad115f86-6e92-46d1-b606-ea5d36c44914-1_all_2800.jpg",
+            "ad115f86-6e92-46d1-b606-ea5d36c44914-1_all_1367.jpg",
+            "ad115f86-6e92-46d1-b606-ea5d36c44914-1_all_3144.jpg"
+        ];
+
+        // Variabel Status
+        let currentImageIndex = 0;
+        let isPlaying = false;
+        let slideshowInterval;
+
+        // Elemen DOM
+        const coverScreen = document.getElementById('coverScreen');
+        const mainContent = document.getElementById('mainContent');
+        const openGiftBtn = document.getElementById('openGiftBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        const slideshowContainer = document.getElementById('slideshowContainer');
+        const indicatorsContainer = document.getElementById('indicatorsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const heartsContainer = document.getElementById('heartsContainer');
+
+        // 1. Inisialisasi Slideshow Foto
+        function initSlideshow() {
+            images.forEach((src, index) => {
+                // Buat tag img
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = `slide-image ${index === 0 ? 'active' : ''}`;
+                img.alt = `Foto Nabila ${index + 1}`;
+                slideshowContainer.appendChild(img);
+
+                // Buat titik indikator
+                const dot = document.createElement('button');
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 outline-none ${index === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`;
+                dot.onclick = () => goToSlide(index);
+                indicatorsContainer.appendChild(dot);
+            });
+        }
+
+        // 2. Fungsi Pindah Slide
+        function updateSlide() {
+            const slides = slideshowContainer.querySelectorAll('img');
+            const dots = indicatorsContainer.querySelectorAll('button');
+
+            slides.forEach((slide, index) => {
+                if (index === currentImageIndex) {
+                    slide.classList.add('active');
+                    dots[index].classList.remove('bg-white/50');
+                    dots[index].classList.add('bg-white', 'scale-125');
+                } else {
+                    slide.classList.remove('active');
+                    dots[index].classList.remove('bg-white', 'scale-125');
+                    dots[index].classList.add('bg-white/50');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateSlide();
+            resetInterval();
+        }
+
+        function prevSlide() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateSlide();
+            resetInterval();
+        }
+
+        function goToSlide(index) {
+            currentImageIndex = index;
+            updateSlide();
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(nextSlide, 3500);
+        }
+
+        // 3. Efek Hati (Love) Jatuh Beterbangan
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fa-solid fa-heart floating-heart opacity-0';
+                
+                // Randomize posisi, ukuran, dan durasi animasi
+                const size = Math.random() * 20 + 10;
+                const leftPos = Math.random() * 100;
+                const duration = Math.random() * 4 + 4; // 4s to 8s
+                const delay = Math.random() * 5; // 0s to 5s
+
+                heart.style.fontSize = `${size}px`;
+                heart.style.left = `${leftPos}%`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${delay}s`;
+
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // 4. Logika Musik
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            } else {
+                bgMusic.play().catch(e => console.log('Autoplay dicegah'));
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 5. Logika Buka Kado
+        openGiftBtn.addEventListener('click', () => {
+            // Putar musik secara otomatis
+            isPlaying = false; // Setel ke false agar toggle berfungsi menyalakan
+            toggleMusic();
+
+            // Sembunyikan cover dengan transisi fade out
+            coverScreen.classList.add('fade-out');
+            
+            // Izinkan scroll body (sebelumnya tersembunyi)
+            document.body.classList.remove('overflow-hidden');
+
+            // Tampilkan konten utama setelah fade out cover sedikit berjalan
+            setTimeout(() => {
+                coverScreen.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                
+                // Mulai interval slideshow otomatis
+                slideshowInterval = setInterval(nextSlide, 3500);
+            }, 600);
+        });
+
+        // Event Listeners untuk Tombol
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        musicToggleBtn.addEventListener('click', toggleMusic);
+
+        // Inisialisasi awal saat halaman dimuat
+        window.onload = () => {
+            initSlideshow();
+            createHearts();
+        };
+    </script>
+</body>
+</html>
+
