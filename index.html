@@ -270,6 +270,11 @@
 
         // 4. Logika Musik
         function toggleMusic() {
+            openGiftBtn.addEventListener('click', function() {
+    bgMusic.play();
+    // Opsional: ganti teks tombol setelah diklik
+    btn.innerHTML = "Musik Dimulai!"; 
+});
             if (isPlaying) {
                 bgMusic.pause();
                 musicIcon.classList.remove('fa-pause');
